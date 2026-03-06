@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CryptoDash | Live Dashboard</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Peity -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peity/3.3.0/jquery.peity.min.js"></script>
+
+<!-- Charts -->
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+
+<style>
+
+/* BACKGROUND */
+
+body{
+background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+background-size:300% 300%;
+animation:bgMove 15s ease infinite;
+font-family:"Poppins",sans-serif;
+color:white;
+margin:0;
+overflow-x:hidden;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* NAVBAR */
+
+.navbar{
+background:rgba(255,255,255,0.05)!important;
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.navbar::after{
+content:"";
+display:block;
+height:2px;
+background:linear-gradient(90deg,#6a00ff,#00eaff);
+}
+
+.nav-link{
+color:#ddd!important;
+}
+
+.nav-link:hover{
+color:#00eaff!important;
+}
+
+.nav-link.active{
+color:#00eaff!important;
+}
+
+/* LOGO */
+
+.brand-logo{
+width:40px;
+height:40px;
+margin-right:10px;
+border-radius:50%;
+box-shadow:0 0 18px rgba(140,0,255,0.7);
+}
+
+/* TITLE */
+
+.dashboard-title{
+text-align:center;
+font-size:32px;
+margin-top:40px;
+font-weight:700;
+}
+
+/* SEARCH */
+
+.search-box{
+padding:12px;
+border-radius:50px;
+background:rgba(255,255,255,0.1);
+border:none;
+width:50%;
+margin:auto;
+display:block;
+text-align:center;
+color:white;
+}
+
+/* TABLE */
+
+.table-container{
+background:rgba(255,255,255,0.05);
+border-radius:14px;
+backdrop-filter:blur(10px);
+padding:20px;
+}
+
+.spark{
+width:90px!important;
+}
+
+/* PRICE FLASH */
+
+.price-up{animation:flashGreen .6s}
+.price-down{animation:flashRed .6s}
+
+@keyframes flashGreen{
+0%{background:#005f2f}
+100%{background:transparent}
+}
+
+@keyframes flashRed{
+0%{background:#6b001e}
+100%{background:transparent}
+}
+
+/* DETAILS PANEL */
+
+.details-panel{
+position:fixed;
+top:0;
+right:-420px;
+width:400px;
+height:100vh;
+background:rgba(0,0,0,0.9);
+color:white;
+padding:20px;
+transition:0.4s;
+z-index:2000;
+overflow-y:auto;
+}
+
+.details-panel.show{
+right:0;
+}
+
+.details-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,0.2);
+padding-bottom:10px;
+}
+
+.details-section-title{
+margin-top:15px;
+font-weight:600;
+font-size:18px;
+color:#00eaff;
+}
+
+.details-description{
+margin-top:10px;
+font-size:14px;
+color:#ccc;
+line-height:1.6;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:90px;
+padding:30px;
+text-align:center;
+background:rgba(255,255,255,0.05);
+border-top:1px solid rgba(255,255,255,0.1);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.dashboard-title{
+font-size:22px;
+padding:0 10px;
+}
+
+.search-box{
+width:90%;
+}
+
+.table-container{
+padding:10px;
+}
+
+.spark{
+width:70px!important;
+}
+
+.details-panel{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+<div class="container">
+
+<a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
+<img src="assets/logo.png" class="brand-logo">
+CryptoDash
+</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a class="nav-link" href="index.html">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link active" href="live-dashboard.html">Live Prices</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="news.html">News</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="about.html">About</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="blog.html">Blog</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="contact.html">Contact</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+<h2 class="dashboard-title">🚀 Modern Live Crypto Dashboard (Top 100)</h2>
+
+<input type="text" id="search" class="search-box mb-4" placeholder="Search cryptocurrency...">
+
+<div class="container table-container table-responsive">
+
+<table class="table table-dark table-hover">
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>Coin</th>
+<th>Price</th>
+<th>24h</th>
+<th>7d</th>
+<th>30d</th>
+<th>Trend</th>
+</tr>
+
+</thead>
+
+<tbody id="coinBody"></tbody>
+
+</table>
+
+</div>
+
+<!-- DETAILS PANEL -->
+
+<div id="coinDetailsPanel" class="details-panel">
+
+<div class="details-header">
+<h4 id="d-name"></h4>
+<button class="btn-close btn-close-white" onclick="closeDetails()"></button>
+</div>
+
+<img id="d-img" width="70" class="mt-3 mb-3">
+
+<p><strong>Price:</strong> <span id="d-price"></span></p>
+<p><strong>Market Cap:</strong> <span id="d-mcap"></span></p>
+<p><strong>Rank:</strong> <span id="d-rank"></span></p>
+
+<h5 class="details-section-title">Description</h5>
+
+<div id="d-desc" class="details-description"></div>
+
+</div>
+
+<script>
+
+let previous={};
+
+/* LOAD DATA */
+
+async function loadData(){
+
+const res=await fetch(
+"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h,24h,7d,30d"
+);
+
+const data=await res.json();
+
+let html="";
+
+data.forEach((coin,i)=>{
+
+previous[coin.id]=coin.current_price;
+
+html+=`
+
+<tr onclick="openDetails('${coin.id}')">
+
+<td>${i+1}</td>
+
+<td>
+<img src="${coin.image}" width="26">
+${coin.name}
+</td>
+
+<td id="price-${coin.id}">
+$${coin.current_price.toLocaleString()}
+</td>
+
+<td class="${coin.price_change_percentage_24h>=0?'text-success':'text-danger'}">
+${coin.price_change_percentage_24h?.toFixed(2)}%
+</td>
+
+<td class="${coin.price_change_percentage_7d_in_currency>=0?'text-success':'text-danger'}">
+${coin.price_change_percentage_7d_in_currency?.toFixed(2)}%
+</td>
+
+<td class="${coin.price_change_percentage_30d_in_currency>=0?'text-success':'text-danger'}">
+${coin.price_change_percentage_30d_in_currency?.toFixed(2)}%
+</td>
+
+<td>
+<span class="spark">
+${coin.sparkline_in_7d.price.join(",")}
+</span>
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("coinBody").innerHTML=html;
+
+$(".spark").peity("line",{height:30,stroke:"#00eaff",strokeWidth:2,fill:""});
+
+}
+
+loadData();
+
+setInterval(loadData,10000);
+
+/* SEARCH */
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let q=this.value.toLowerCase();
+
+document.querySelectorAll("#coinBody tr").forEach(r=>{
+
+r.style.display=r.innerText.toLowerCase().includes(q)?"":"none";
+
+});
+
+});
+
+/* DETAILS */
+
+async function openDetails(id){
+
+let panel=document.getElementById("coinDetailsPanel");
+
+panel.classList.add("show");
+
+let data=await fetch(`https://api.coingecko.com/api/v3/coins/${id}`).then(r=>r.json());
+
+document.getElementById("d-name").innerText=data.name;
+
+document.getElementById("d-img").src=data.image.large;
+
+document.getElementById("d-price").innerText="$"+data.market_data.current_price.usd.toLocaleString();
+
+document.getElementById("d-mcap").innerText="$"+data.market_data.market_cap.usd.toLocaleString();
+
+document.getElementById("d-rank").innerText=data.market_cap_rank;
+
+let desc=data.description.en||"No description";
+
+desc=desc.replace(/(<([^>]+)>)/gi,"");
+
+document.getElementById("d-desc").innerText=desc.substring(0,1500);
+
+}
+
+function closeDetails(){
+document.getElementById("coinDetailsPanel").classList.remove("show");
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="footer">
+© 2026 CryptoDash | Built for the future of trading
+</div>
+
+</body>
+
+</html>
